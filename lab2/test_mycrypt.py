@@ -42,12 +42,17 @@ def test_invalid_char(invalid_input):
         mycrypt.encode(invalid_input)
 
 
-@pytest.mark.parametrize("invalid_input", [])
+@pytest.mark.parametrize("invalid_input", [1, 1.1])
 def test_invalid_types(invalid_input):
     '''Invalid parameter types should raise TypeError'''
     with pytest.raises(TypeError):
         mycrypt.encode(invalid_input)
 
+@pytest.mark.parametrize("invalid_input", ["1"*2000, "2"*3000])
+def test_invalid_lenght(invalid_input):
+    '''Invalid input parameter lenght should raise ValueError'''
+    with pytest.raises(ValueError):
+        mycrypt.encode(invalid_input)
 
 def test_timing():
     '''Test whether encoding runs in approximately constant time, repetitions
